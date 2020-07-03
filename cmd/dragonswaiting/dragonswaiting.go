@@ -40,8 +40,8 @@ import (
 	"os"
 	"strconv"
 
-	"github.com/mrManner/membernet-go/pkg/shared"
-	"github.com/mrManner/membernet-go/pkg/waitinglist"
+	"mrmanner.eu/go/membernet/pkg/shared"
+	"mrmanner.eu/go/membernet/pkg/waitinglist"
 )
 
 func main() {

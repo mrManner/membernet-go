@@ -1,4 +1,4 @@
-package shared
+package shared // import "mrmanner.eu/go/membernet/pkg/shared"
 
 // Contact represents contact details for a relative, to be included
 // on a Profile. It does *not* represent the contact details on a

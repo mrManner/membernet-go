@@ -1,4 +1,4 @@
-package waitinglist
+package waitinglist // import "mrmanner.eu/go/membernet/pkg/waitinglist"
 
 import (
 	"fmt"
@@ -8,7 +8,7 @@ import (
 	"net/url"
 	"strconv"
 
-	"github.com/mrManner/membernet-go/pkg/shared"
+	"mrmanner.eu/go/membernet/pkg/shared"
 )
 
 type Contact struct {

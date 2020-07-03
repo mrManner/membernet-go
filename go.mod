@@ -1,3 +1,3 @@
-module github.com/mrManner/membernet-go
+module mrmanner.eu/go/membernet
 
 go 1.13
