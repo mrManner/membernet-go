@@ -85,21 +85,21 @@ func main() {
 				ZipName:     line[11],
 			},
 			Relative1: waitinglist.Contact{
-				Name:   line[15],
-				Phone:  line[18],
-				Mobile: line[17],
-				Email:  line[16],
+				Name:   line[12],
+				Phone:  line[13],
+				Mobile: line[14],
+				Email:  line[15],
 			},
 			Relative2: waitinglist.Contact{
-				Name:   line[19],
-				Phone:  line[22],
-				Mobile: line[21],
-				Email:  line[20],
+				Name:   line[16],
+				Phone:  line[17],
+				Mobile: line[18],
+				Email:  line[19],
 			},
 		}
 
 		var leader bool
-		if line[22] == "1" {
+		if line[20] == "1" {
 			leader = true
 		} else {
 			leader = false
