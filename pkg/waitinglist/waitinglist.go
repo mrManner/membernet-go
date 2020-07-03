@@ -8,7 +8,7 @@ import (
 	"net/url"
 	"strconv"
 
-	"github.com/mrManner/membernet-go/pkg/constants"
+	"github.com/mrManner/membernet-go/pkg/shared"
 )
 
 type Contact struct {
@@ -23,7 +23,7 @@ type Address struct {
 	Street      string
 	ZipCode     string
 	ZipName     string
-	Country     constants.Country
+	Country     shared.Country
 }
 
 type Profile struct {

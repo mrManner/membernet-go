@@ -40,7 +40,7 @@ import (
 	"os"
 	"strconv"
 
-	"github.com/mrManner/membernet-go/pkg/constants"
+	"github.com/mrManner/membernet-go/pkg/shared"
 	"github.com/mrManner/membernet-go/pkg/waitinglist"
 )
 
@@ -81,7 +81,7 @@ func main() {
 				AddressType: 1,
 				Street:      line[9],
 				ZipCode:     line[10],
-				Country:     constants.Sweden,
+				Country:     shared.Sweden,
 				ZipName:     line[11],
 			},
 			Relative1: waitinglist.Contact{

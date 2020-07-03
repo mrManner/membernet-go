@@ -1,6 +1,6 @@
 // Package constants contains definitions used by the Membernet APIs, such as
 // numeric codes for countries, membership statuses, etc.
-package constants
+package shared
 
 // Country represents a country in an address or in a membership profile as
 // an ISO 3166-1 numeric country code: https://www.iso.org/obp/ui/#search.
