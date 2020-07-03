@@ -91,6 +91,9 @@ func Register(p Profile, leader bool, group string, apikey string, host string) 
 	payload.Set("contact_list[contacts][contact_10][details]", p.Mobile)
 
 	resp, err := http.PostForm(u.String(), payload)
+	if err != nil {
+		log.Fatal(err)
+	}
 	if resp.StatusCode > 201 {
 		body, err := ioutil.ReadAll(resp.Body)
 		if err != nil {
