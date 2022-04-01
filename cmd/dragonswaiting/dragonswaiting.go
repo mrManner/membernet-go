@@ -47,10 +47,28 @@ import (
 func main() {
 	pathPtr := flag.String("infile", "", "path to csv file with members to add")
 	groupPtr := flag.String("group", "", "group id of group to import to")
-	keyPtr := flag.String("apikey", "", "api key for waitinglist API in selected group")
+	keyPtr := flag.String("apikey", "", "api key for waitinglist API in selected group. The key can also be provided through the MEMBERNET_API_KEY environment variable.")
 	hostPtr := flag.String("host", "scoutnet.se", "membernet host to use")
 
 	flag.Parse()
+
+	var key string
+	key = *keyPtr
+	if key == "" {
+		key = os.Getenv("MEMBERNET_API_KEY")
+	}
+	if key == "" {
+		flag.PrintDefaults()
+		os.Exit(1)
+	}
+	if pathPtr == nil || *pathPtr == "" {
+		flag.PrintDefaults()
+		os.Exit(1)
+	}
+	if groupPtr == nil || *groupPtr == "" {
+		flag.PrintDefaults()
+		os.Exit(1)
+	}
 
 	file, err := os.Open(*pathPtr)
 	if err != nil {
@@ -105,10 +123,13 @@ func main() {
 			leader = false
 		}
 
-		waitinglist.Register(profile, leader, *groupPtr,
+		err := waitinglist.Register(profile, leader, *groupPtr,
 			*keyPtr,
 			*hostPtr,
 		)
+		if err != nil {
+			log.Fatalf("Got error registering %s %s in Membernet: %s", profile.FirstName, profile.LastName, err)
+		}
 
 	}
 }

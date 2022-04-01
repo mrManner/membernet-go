@@ -3,14 +3,15 @@ package waitinglist // import "mrmanner.eu/go/membernet/pkg/waitinglist"
 import (
 	"fmt"
 	"io/ioutil"
-	"log"
 	"net/http"
 	"net/url"
 	"strconv"
 
+	"github.com/pkg/errors"
 	"mrmanner.eu/go/membernet/pkg/shared"
 )
 
+// Contact describes contact details for a single person
 type Contact struct {
 	Name   string
 	Phone  string
@@ -18,6 +19,7 @@ type Contact struct {
 	Email  string
 }
 
+// Address describes a geographic address for a member
 type Address struct {
 	AddressType int
 	Street      string
@@ -26,6 +28,7 @@ type Address struct {
 	Country     shared.Country
 }
 
+// Profile describes a full profile for the waiting list
 type Profile struct {
 	Dob       string
 	Ssno      int
@@ -41,7 +44,8 @@ type Profile struct {
 	Relative2 Contact
 }
 
-func Register(p Profile, leader bool, group string, apikey string, host string) {
+// Register registers the new member described by profile in group
+func Register(p Profile, leader bool, group string, apikey string, host string) error {
 	u := &url.URL{
 		Scheme: "https",
 		Host:   host,
@@ -92,18 +96,14 @@ func Register(p Profile, leader bool, group string, apikey string, host string) 
 
 	resp, err := http.PostForm(u.String(), payload)
 	if err != nil {
-		log.Fatal(err)
+		return errors.Wrap(err, "Got error posting profile to Membernet")
 	}
 	if resp.StatusCode > 201 {
 		body, err := ioutil.ReadAll(resp.Body)
 		if err != nil {
-			log.Fatal(err)
+			return errors.Wrapf(err, "Got status %s from Membernet. When trying to read error message from API an error occured.", resp.Status)
 		}
-		fmt.Printf("%s, %04d, %s, %s, %d, %s",
-			p.Dob, p.Ssno, p.FirstName, p.LastName, resp.StatusCode, body)
-		fmt.Print("\n")
+		return errors.New(fmt.Sprintf("Got status %s from Membernet: %s", resp.Status, body))
 	}
-	if err != nil {
-		log.Fatal(err)
-	}
+	return nil
 }
